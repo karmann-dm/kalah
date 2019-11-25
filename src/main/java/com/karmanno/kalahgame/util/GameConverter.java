@@ -1,9 +1,8 @@
-package com.karmanno.kalahgame.converter;
+package com.karmanno.kalahgame.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.karmanno.kalahgame.entity.Game;
 import com.karmanno.kalahgame.service.UrlBuilder;
-import com.karmanno.kalahgame.util.StatusMapper;
 import com.karmanno.kalahgame.web.dto.CreateGameResponse;
 import com.karmanno.kalahgame.web.dto.MakeMovementResponse;
 import lombok.RequiredArgsConstructor;

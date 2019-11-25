@@ -1,7 +1,7 @@
 package com.karmanno.kalahgame.web;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.karmanno.kalahgame.converter.GameConverter;
+import com.karmanno.kalahgame.util.GameConverter;
 import com.karmanno.kalahgame.service.GameService;
 import com.karmanno.kalahgame.web.dto.CreateGameResponse;
 import com.karmanno.kalahgame.web.dto.MakeMovementResponse;
