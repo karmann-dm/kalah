@@ -1,7 +1,9 @@
 package com.karmanno.kalahgame.converter;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.karmanno.kalahgame.entity.Game;
 import com.karmanno.kalahgame.service.UrlBuilder;
+import com.karmanno.kalahgame.util.StatusMapper;
 import com.karmanno.kalahgame.web.dto.CreateGameResponse;
 import com.karmanno.kalahgame.web.dto.MakeMovementResponse;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +22,11 @@ public class GameConverter {
         return response;
     }
 
-    public MakeMovementResponse convertMovement(Game game) {
+    public MakeMovementResponse convertMovement(Game game) throws JsonProcessingException {
         MakeMovementResponse response = new MakeMovementResponse();
+        response.setId(game.getId().toString());
+        response.setUrl(urlBuilder.buildUrl(ENTITY, response.getId()));
+        response.setPits(StatusMapper.stringToMap(game.getStatus()));
         return response;
     }
 }
