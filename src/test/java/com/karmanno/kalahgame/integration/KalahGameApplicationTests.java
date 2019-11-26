@@ -1,4 +1,4 @@
-package com.karmanno.kalahgame;
+package com.karmanno.kalahgame.integration;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
