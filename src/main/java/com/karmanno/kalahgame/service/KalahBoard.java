@@ -50,25 +50,31 @@ public class KalahBoard {
 
     boolean firstUserMoves(int pitId) {
         int pitIndex = pitId - 1;
-        int stepsCount = boardPits.get(pitIndex);
-        boardPits.set(pitIndex, 0);
-        int endIndex = pitIndex;
-        for (int index = pitIndex; index < pitIndex + stepsCount; index++) {
-            boardPits.set(index, boardPits.get(index) + 1);
-            endIndex = index;
-        }
+        int endIndex = cycleShift(pitIndex, SECOND_KALAH);
         return endIndex == FIRST_KALAH;
     }
 
     boolean secondUserMoves(int pitId) {
         int pitIndex = pitId - 1;
-        int stepsCount = boardPits.get(pitIndex);
-        boardPits.set(pitIndex, 0);
-        int endIndex = pitIndex;
-        for (int index = pitIndex; index >= pitIndex + stepsCount; index--) {
-            boardPits.set(index, boardPits.get(index) + 1);
-            endIndex = index;
-        }
+        int endIndex = cycleShift(pitIndex, FIRST_KALAH);
         return endIndex == SECOND_KALAH;
+    }
+
+    private int cycleShift(int pitIndex, int prohibitedPit) {
+        int weight = boardPits.get(pitIndex);
+        boardPits.set(pitIndex, 0);
+        int currentIndex;
+        do {
+            currentIndex = nextIndex(pitIndex);
+            if (currentIndex != prohibitedPit) {
+                boardPits.set(currentIndex, boardPits.get(currentIndex) + 1);
+            }
+            weight--;
+        } while (weight > 0);
+        return currentIndex;
+    }
+
+    private int nextIndex(int currentIndex) {
+        return (currentIndex + 1) % INITIAL_CAPACITY;
     }
 }

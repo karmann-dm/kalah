@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 public class GameConverter {
     private static final String ENTITY = "games";
     private final UrlBuilder urlBuilder;
-    private final StatusConverter statusConverter;
 
     public CreateGameResponse convertGameCreated(Game game) {
         CreateGameResponse response = new CreateGameResponse();
@@ -25,7 +24,7 @@ public class GameConverter {
         MakeMovementResponse response = new MakeMovementResponse();
         response.setId(game.getId().toString());
         response.setUrl(urlBuilder.buildUrl(ENTITY, response.getId()));
-        response.setPits(statusConverter.statusToBoard(game.getStatus()));
+        response.setPits(game.getStatus());
         return response;
     }
 }
