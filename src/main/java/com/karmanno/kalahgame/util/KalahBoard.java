@@ -1,4 +1,4 @@
-package com.karmanno.kalahgame.service;
+package com.karmanno.kalahgame.util;
 
 import lombok.Data;
 
@@ -32,15 +32,15 @@ public class KalahBoard {
         boardStatus.forEach((key, value) -> boardPits.add(value));
     }
 
-    static KalahBoard load(Map<Integer, Integer> boardStatus) {
+    public static KalahBoard load(Map<Integer, Integer> boardStatus) {
         return new KalahBoard(boardStatus);
     }
 
-    static KalahBoard init() {
+    public static KalahBoard init() {
         return new KalahBoard();
     }
 
-    Map<Integer, Integer> getBoard() {
+    public Map<Integer, Integer> getBoard() {
         Map<Integer, Integer> board = new HashMap<>();
         for (int index = 0; index < boardPits.size(); index++ ) {
             board.put(index + 1, boardPits.get(index));
@@ -48,13 +48,13 @@ public class KalahBoard {
         return board;
     }
 
-    boolean firstUserMoves(int pitId) {
+    public boolean firstUserMoves(int pitId) {
         int pitIndex = pitId - 1;
         int endIndex = cycleShift(pitIndex, SECOND_KALAH);
         return endIndex == FIRST_KALAH;
     }
 
-    boolean secondUserMoves(int pitId) {
+    public boolean secondUserMoves(int pitId) {
         int pitIndex = pitId - 1;
         int endIndex = cycleShift(pitIndex, FIRST_KALAH);
         return endIndex == SECOND_KALAH;

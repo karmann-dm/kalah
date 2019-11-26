@@ -1,4 +1,4 @@
-package com.karmanno.kalahgame.service;
+package com.karmanno.kalahgame.util;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

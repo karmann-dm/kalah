@@ -1,8 +1,11 @@
 package com.karmanno.kalahgame.web;
 
+import com.karmanno.kalahgame.config.security.CurrentUser;
+import com.karmanno.kalahgame.config.security.UserPrincipal;
 import com.karmanno.kalahgame.service.GameService;
 import com.karmanno.kalahgame.util.GameConverter;
 import com.karmanno.kalahgame.web.dto.CreateGameResponse;
+import com.karmanno.kalahgame.web.dto.JoinGameResponse;
 import com.karmanno.kalahgame.web.dto.MakeMovementResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,11 +31,21 @@ public class GameController {
     @PutMapping("/{gameId}/{pitId}")
     public ResponseEntity<MakeMovementResponse> makeMove(
             @PathVariable Integer gameId,
-            @PathVariable Integer pitId
+            @PathVariable Integer pitId,
+            @CurrentUser UserPrincipal userPrincipal
     ) {
         MakeMovementResponse response = gameConverter.convertMovement(
-                gameService.makeMovement(gameId, pitId)
+                gameService.makeMovement(gameId, userPrincipal.getId(), pitId)
         );
         return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/{gameId}")
+    public ResponseEntity<JoinGameResponse> joinGame(
+            @PathVariable Integer gameId,
+            @CurrentUser UserPrincipal userPrincipal
+    ) {
+        gameService.joinGame(gameId, userPrincipal.getId());
+        return ResponseEntity.ok(JoinGameResponse.builder().success(true).build());
     }
 }

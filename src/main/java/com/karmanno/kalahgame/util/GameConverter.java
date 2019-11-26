@@ -1,7 +1,6 @@
 package com.karmanno.kalahgame.util;
 
 import com.karmanno.kalahgame.entity.Game;
-import com.karmanno.kalahgame.service.UrlBuilder;
 import com.karmanno.kalahgame.web.dto.CreateGameResponse;
 import com.karmanno.kalahgame.web.dto.MakeMovementResponse;
 import lombok.RequiredArgsConstructor;
