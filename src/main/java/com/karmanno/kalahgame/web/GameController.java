@@ -5,7 +5,7 @@ import com.karmanno.kalahgame.config.security.UserPrincipal;
 import com.karmanno.kalahgame.service.GameService;
 import com.karmanno.kalahgame.util.GameConverter;
 import com.karmanno.kalahgame.web.dto.CreateGameResponse;
-import com.karmanno.kalahgame.web.dto.JoinGameResponse;
+import com.karmanno.kalahgame.web.dto.ApiResponse;
 import com.karmanno.kalahgame.web.dto.MakeMovementResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +21,9 @@ public class GameController {
     private final GameConverter gameConverter;
 
     @PostMapping("")
-    public ResponseEntity<CreateGameResponse> createGame() {
+    public ResponseEntity<CreateGameResponse> createGame(@CurrentUser UserPrincipal userPrincipal) {
         CreateGameResponse response = gameConverter.convertGameCreated(
-                gameService.create()
+                gameService.create(userPrincipal.getId())
         );
         return ResponseEntity.created(URI.create(response.getUrl())).body(response);
     }
@@ -41,11 +41,11 @@ public class GameController {
     }
 
     @PutMapping("/{gameId}")
-    public ResponseEntity<JoinGameResponse> joinGame(
+    public ResponseEntity<ApiResponse> joinGame(
             @PathVariable Integer gameId,
             @CurrentUser UserPrincipal userPrincipal
     ) {
         gameService.joinGame(gameId, userPrincipal.getId());
-        return ResponseEntity.ok(JoinGameResponse.builder().success(true).build());
+        return ResponseEntity.ok(ApiResponse.builder().success(true).build());
     }
 }

@@ -22,12 +22,13 @@ public class GameServiceImpl implements GameService {
     private final GamePermissionsService gamePermissionsService;
 
     @Override
-    public Game create() {
+    public Game create(Integer userId) {
         Game game = new Game();
         String initialStatus = statusConverter.boardToStatus(
                 KalahBoard.init().getBoard());
         log.info("Game is being created... Initial status = {}", initialStatus);
         game.setStatus(initialStatus);
+        game.setFirstUserId(userId);
         return gameRepository.save(game);
     }
 

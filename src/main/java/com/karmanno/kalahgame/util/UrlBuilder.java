@@ -1,20 +1,15 @@
 package com.karmanno.kalahgame.util;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @Component
 public class UrlBuilder {
-    @Value("${server.port}")
-    private Integer port;
-
     public String buildUrl(String entity, String id) {
-        return String.format(
-                "http://%s:%s/%s/%s",
-                "somehost",
-                port,
-                entity,
-                id
-        );
+        return ServletUriComponentsBuilder.fromCurrentContextPath().path("/{entity}/{gameId}")
+                .buildAndExpand(
+                        entity,
+                        id
+                ).toUriString();
     }
 }

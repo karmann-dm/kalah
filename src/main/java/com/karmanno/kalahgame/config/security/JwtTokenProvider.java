@@ -1,5 +1,6 @@
 package com.karmanno.kalahgame.config.security;
 
+import com.karmanno.kalahgame.web.dto.LoginResponse;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,17 +18,20 @@ public class JwtTokenProvider {
     @Value("${app.jwtExpirationInMs}")
     private int jwtExpirationInMs;
 
-    public String generateToken(Authentication authentication) {
+    public LoginResponse generateToken(Authentication authentication) {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
 
-        return Jwts.builder()
-                .setSubject(Integer.toString(userPrincipal.getId()))
-                .setIssuedAt(new Date())
-                .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
-                .compact();
+        return LoginResponse.builder()
+                .token(Jwts.builder()
+                        .setSubject(Integer.toString(userPrincipal.getId()))
+                        .setIssuedAt(new Date())
+                        .setExpiration(expiryDate)
+                        .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                        .compact())
+                .expirationData(expiryDate)
+                .build();
     }
 
     Integer getUserIdFromJWT(String token) {

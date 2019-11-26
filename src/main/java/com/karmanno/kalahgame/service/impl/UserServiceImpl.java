@@ -14,17 +14,17 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public User loadById(Integer userId) {
-        return userRepository.findById(userId).orElseThrow(()
-                -> new RuntimeException("Unable to find user with id = " + userId));
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
     }
 
     @Override
     public User register(String username, String password) {
-        User user = User.builder()
-                .username(username)
-                .password(password)
-                .build();
+        User user = new User(
+                null,
+                username,
+                password
+        );
         return userRepository.save(user);
     }
 }
