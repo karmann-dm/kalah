@@ -1,6 +1,5 @@
 package com.karmanno.kalahgame.entity;
 
-import com.karmanno.kalahgame.service.KalahBoard;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -10,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "games")
 public class Game {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "first_user")
@@ -25,4 +24,9 @@ public class Game {
 
     @Column(name = "status")
     private String status;
+
+    @PrePersist
+    public void prePersist() {
+        currentTurn = UserTurn.randomTurn();
+    }
 }

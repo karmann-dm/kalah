@@ -21,7 +21,7 @@ public class GameServiceImpl implements GameService {
         Game game = new Game();
         String initialStatus = statusConverter.boardToStatus(
                 KalahBoard.init().getBoard());
-        log.debug("Game is being created... Initial status = {}", initialStatus);
+        log.info("Game is being created... Initial status = {}", initialStatus);
         game.setStatus(initialStatus);
         return gameRepository.save(game);
     }
@@ -54,7 +54,7 @@ public class GameServiceImpl implements GameService {
             }
         }
         String newStatus = statusConverter.boardToStatus(board.getBoard());
-        log.debug("Movement performed. New status = {}", newStatus);
+        log.info("Movement performed. New status = {}", newStatus);
         game.setStatus(newStatus);
     }
 }
