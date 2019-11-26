@@ -2,6 +2,9 @@ package com.karmanno.kalahgame.service.impl;
 
 import com.karmanno.kalahgame.entity.Game;
 import com.karmanno.kalahgame.entity.UserTurn;
+import com.karmanno.kalahgame.exception.GameNotFoundException;
+import com.karmanno.kalahgame.exception.InvalidGameAccessException;
+import com.karmanno.kalahgame.exception.InvalidMovementException;
 import com.karmanno.kalahgame.repository.GameRepository;
 import com.karmanno.kalahgame.service.GamePermissionsService;
 import com.karmanno.kalahgame.service.GameService;
@@ -12,6 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -26,9 +31,9 @@ public class GameServiceImpl implements GameService {
         Game game = new Game();
         String initialStatus = statusConverter.boardToStatus(
                 KalahBoard.init().getBoard());
-        log.info("Game is being created... Initial status = {}", initialStatus);
         game.setStatus(initialStatus);
         game.setFirstUserId(userId);
+        log.info("Game is being created... {}", game.toString());
         return gameRepository.save(game);
     }
 
@@ -38,6 +43,7 @@ public class GameServiceImpl implements GameService {
         validateAccess(userId, gameId);
         Game game = fetchGame(gameId);
         move(game, pitId);
+        log.info("Movement is being performed... {}", game);
         return gameRepository.save(game);
     }
 
@@ -53,7 +59,14 @@ public class GameServiceImpl implements GameService {
         } else {
             throw new RuntimeException("Could not join game. Both of users are set");
         }
+        log.info("User with id={} has been joined to the game with id={} : {}", userId, gameId, game);
         return gameRepository.save(game);
+    }
+
+    @Override
+    @Transactional
+    public List<Game> fetchGames(Integer userId) {
+        return gameRepository.fetchGamesByUserId(userId);
     }
 
     private void move(Game game, int pitId) {
@@ -61,35 +74,40 @@ public class GameServiceImpl implements GameService {
                 statusConverter.statusToBoard(game.getStatus())
         );
         if (UserTurn.isFirstUsersTurn(game.getCurrentTurn())) {
+            if (board.isPitOfSecondUser(pitId)) {
+                throw new RuntimeException("Turn is not allowed");
+            }
             boolean result = board.firstUserMoves(pitId);
             if (!result) {
                 game.setCurrentTurn(UserTurn.FIRST_USER);
             }
         }
         if (UserTurn.isSecondUsersTurn(game.getCurrentTurn())) {
+            if (board.isPitOfFirstUser(pitId)) {
+                throw new RuntimeException("Turn is not allowed");
+            }
             boolean result = board.secondUserMoves(pitId);
             if (!result) {
                 game.setCurrentTurn(UserTurn.SECOND_USER);
             }
         }
         String newStatus = statusConverter.boardToStatus(board.getBoard());
-        log.info("Movement performed. New status = {}", newStatus);
         game.setStatus(newStatus);
     }
 
     private void validateAccess(Integer userId, Integer gameId) {
-        if (!gamePermissionsService.hasUserAccess(null, gameId)) {
-            throw new RuntimeException("User does not have access to game");
+        if (!gamePermissionsService.hasUserAccess(userId, gameId)) {
+            throw new InvalidGameAccessException(userId, gameId);
         }
-        if (!gamePermissionsService.canUserMove(null, gameId)) {
-            throw new RuntimeException("User can't move right now (another user's turn)");
+        if (!gamePermissionsService.canUserMove(userId, gameId)) {
+            throw new InvalidMovementException(userId, gameId);
         }
     }
 
     private Game fetchGame(Integer gameId) {
         return gameRepository.findById(gameId)
                 .orElseThrow(() ->
-                        new RuntimeException("Unable to find game with id = " + gameId)
+                        new GameNotFoundException(gameId)
                 );
     }
 }

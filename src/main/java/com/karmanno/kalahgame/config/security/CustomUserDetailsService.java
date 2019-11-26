@@ -1,6 +1,7 @@
 package com.karmanno.kalahgame.config.security;
 
 import com.karmanno.kalahgame.entity.User;
+import com.karmanno.kalahgame.exception.UserNotFoundException;
 import com.karmanno.kalahgame.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +19,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(s).orElseThrow(
-                () -> new RuntimeException("User with name = " + s + " not found")
+                () -> new UserNotFoundException(s)
         );
         return UserPrincipal.create(user);
     }
@@ -26,7 +27,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Transactional
     public UserDetails loadUserById(Integer id) {
         User user = userRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("User with id = " + id + " not found")
+                () -> new UserNotFoundException(id)
         );
         return UserPrincipal.create(user);
     }

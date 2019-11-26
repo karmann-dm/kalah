@@ -4,14 +4,14 @@ import com.karmanno.kalahgame.config.security.CurrentUser;
 import com.karmanno.kalahgame.config.security.UserPrincipal;
 import com.karmanno.kalahgame.service.GameService;
 import com.karmanno.kalahgame.util.GameConverter;
-import com.karmanno.kalahgame.web.dto.CreateGameResponse;
-import com.karmanno.kalahgame.web.dto.ApiResponse;
-import com.karmanno.kalahgame.web.dto.MakeMovementResponse;
+import com.karmanno.kalahgame.web.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/games")
@@ -26,6 +26,22 @@ public class GameController {
                 gameService.create(userPrincipal.getId())
         );
         return ResponseEntity.created(URI.create(response.getUrl())).body(response);
+    }
+
+    @GetMapping("")
+    public ResponseEntity<MyGamesResponse> myGames(@CurrentUser UserPrincipal userPrincipal) {
+        List<GameResponse> gameResponses = gameService.fetchGames(userPrincipal.getId())
+                .stream()
+                .map(game ->
+                        GameResponse.builder()
+                                .id(game.getId())
+                                .firstUserId(game.getFirstUserId())
+                                .secondUserId(game.getSecondUserId())
+                                .status(game.getStatus())
+                                .build())
+                .collect(Collectors.toList());
+        MyGamesResponse myGamesResponse = MyGamesResponse.builder().games(gameResponses).build();
+        return ResponseEntity.ok(myGamesResponse);
     }
 
     @PutMapping("/{gameId}/{pitId}")

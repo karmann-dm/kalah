@@ -60,6 +60,14 @@ public class KalahBoard {
         return endIndex == SECOND_KALAH;
     }
 
+    public boolean isPitOfFirstUser(int pitId) {
+        return (pitId - 1) < SECOND_KALAH;
+    }
+
+    public boolean isPitOfSecondUser(int pitId) {
+        return (pitId - 1) > FIRST_KALAH;
+    }
+
     private int cycleShift(int pitIndex, int prohibitedPit) {
         int weight = boardPits.get(pitIndex);
         boardPits.set(pitIndex, 0);
