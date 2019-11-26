@@ -3,6 +3,7 @@ package com.karmanno.kalahgame.service;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,18 +28,27 @@ public class KalahBoard {
     }
 
     private KalahBoard(Map<Integer, Integer> boardStatus) {
-
+        boardPits = new ArrayList<>(INITIAL_CAPACITY);
+        boardStatus.forEach((key, value) -> boardPits.set(key - 1, value));
     }
 
-    public static KalahBoard load(Map<Integer, Integer> boardStatus) {
+    static KalahBoard load(Map<Integer, Integer> boardStatus) {
         return new KalahBoard(boardStatus);
     }
 
-    public static KalahBoard init() {
+    static KalahBoard init() {
         return new KalahBoard();
     }
 
-    public boolean firstUserMoves(int pitId) {
+    Map<Integer, Integer> getBoard() {
+        Map<Integer, Integer> board = new HashMap<>();
+        for (int index = 0; index < board.size(); index++ ) {
+            board.put(index + 1, board.get(index));
+        }
+        return board;
+    }
+
+    boolean firstUserMoves(int pitId) {
         int pitIndex = pitId - 1;
         int stepsCount = boardPits.get(pitIndex);
         boardPits.set(pitIndex, 0);
@@ -50,7 +60,7 @@ public class KalahBoard {
         return endIndex == FIRST_KALAH;
     }
 
-    public boolean secondUserMoves(int pitId) {
+    boolean secondUserMoves(int pitId) {
         int pitIndex = pitId - 1;
         int stepsCount = boardPits.get(pitIndex);
         boardPits.set(pitIndex, 0);

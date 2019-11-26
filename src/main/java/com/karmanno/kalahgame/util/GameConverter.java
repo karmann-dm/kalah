@@ -1,6 +1,5 @@
 package com.karmanno.kalahgame.util;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.karmanno.kalahgame.entity.Game;
 import com.karmanno.kalahgame.service.UrlBuilder;
 import com.karmanno.kalahgame.web.dto.CreateGameResponse;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Component;
 public class GameConverter {
     private static final String ENTITY = "games";
     private final UrlBuilder urlBuilder;
+    private final StatusConverter statusConverter;
 
     public CreateGameResponse convertGameCreated(Game game) {
         CreateGameResponse response = new CreateGameResponse();
@@ -21,11 +21,11 @@ public class GameConverter {
         return response;
     }
 
-    public MakeMovementResponse convertMovement(Game game) throws JsonProcessingException {
+    public MakeMovementResponse convertMovement(Game game) {
         MakeMovementResponse response = new MakeMovementResponse();
         response.setId(game.getId().toString());
         response.setUrl(urlBuilder.buildUrl(ENTITY, response.getId()));
-        response.setPits(StatusMapper.stringToMap(game.getStatus()));
+        response.setPits(statusConverter.statusToBoard(game.getStatus()));
         return response;
     }
 }

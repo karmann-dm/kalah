@@ -1,12 +1,10 @@
 package com.karmanno.kalahgame.web;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.karmanno.kalahgame.util.GameConverter;
 import com.karmanno.kalahgame.service.GameService;
+import com.karmanno.kalahgame.util.GameConverter;
 import com.karmanno.kalahgame.web.dto.CreateGameResponse;
 import com.karmanno.kalahgame.web.dto.MakeMovementResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,13 +30,9 @@ public class GameController {
             @PathVariable Integer gameId,
             @PathVariable Integer pitId
     ) {
-        try {
-            MakeMovementResponse response = gameConverter.convertMovement(
-                    gameService.makeMovement(gameId, pitId)
-            );
-            return ResponseEntity.ok(response);
-        } catch (JsonProcessingException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        MakeMovementResponse response = gameConverter.convertMovement(
+                gameService.makeMovement(gameId, pitId)
+        );
+        return ResponseEntity.ok(response);
     }
 }
