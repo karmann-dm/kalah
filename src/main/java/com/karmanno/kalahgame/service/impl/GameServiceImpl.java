@@ -34,12 +34,12 @@ public class GameServiceImpl implements GameService {
         game.setStatus(initialStatus);
         game.setFirstUserId(userId);
         log.info("Game is being created... {}", game.toString());
-        return gameRepository.save(game);
+        return gameRepository.saveAndFlush(game);
     }
 
     @Override
     @Transactional(isolation = Isolation.SERIALIZABLE) // In case of main requirements of the game by which users should make their turn in defined order
-    public Game makeMovement(Integer gameId, Integer userId, Integer pitId) {
+    public Game makeMovement(Integer userId, Integer gameId, Integer pitId) {
         validateAccess(userId, gameId);
         Game game = fetchGame(gameId);
         move(game, pitId);

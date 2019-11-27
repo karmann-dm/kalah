@@ -8,7 +8,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Data
@@ -48,9 +50,8 @@ public class UserPrincipal implements UserDetails {
     }
 
     public static UserPrincipal create(User user) {
-        List<GrantedAuthority> authorities = List.of(
-                new SimpleGrantedAuthority("ROLE_USER")
-        );
+        List<GrantedAuthority> authorities = Collections
+                .singletonList(new SimpleGrantedAuthority("ROLE_USER"));
         return UserPrincipal.builder()
                 .id(user.getId())
                 .username(user.getUsername())

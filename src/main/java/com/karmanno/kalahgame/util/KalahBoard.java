@@ -71,9 +71,9 @@ public class KalahBoard {
     private int cycleShift(int pitIndex, int prohibitedPit) {
         int weight = boardPits.get(pitIndex);
         boardPits.set(pitIndex, 0);
-        int currentIndex;
+        int currentIndex = pitIndex;
         do {
-            currentIndex = nextIndex(pitIndex);
+            currentIndex = nextIndex(currentIndex);
             if (currentIndex != prohibitedPit) {
                 boardPits.set(currentIndex, boardPits.get(currentIndex) + 1);
             }

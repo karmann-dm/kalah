@@ -16,7 +16,8 @@ public class StatusConverter {
 
     @SneakyThrows
     public Map<Integer, Integer> statusToBoard(String status) {
-        TypeReference<HashMap<Integer, Integer>> typeReference = new TypeReference<>() {};
+        TypeReference<HashMap<Integer, Integer>> typeReference =
+                new TypeReference<HashMap<Integer, Integer>>() {};
         return objectMapper.readValue(status, typeReference);
     }
 
