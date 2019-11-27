@@ -2,21 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c69b8d49-a421-437a-b3bd-39ed97638e9c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/karmanno/kalahgame/integration/GameServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/karmanno/kalahgame/config/security/UserPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/karmanno/kalahgame/config/security/UserPrincipal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/karmanno/kalahgame/service/impl/GameServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/karmanno/kalahgame/service/impl/GameServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/karmanno/kalahgame/util/KalahBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/karmanno/kalahgame/util/KalahBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/karmanno/kalahgame/util/StatusConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/karmanno/kalahgame/util/StatusConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/karmanno/kalahgame/KalahGameApplicationTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/karmanno/kalahgame/unit/CustomUserDetailsServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/karmanno/kalahgame/unit/CustomUserDetailsServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/karmanno/kalahgame/unit/GamePermissionServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/karmanno/kalahgame/unit/GamePermissionServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/karmanno/kalahgame/unit/GameServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/karmanno/kalahgame/unit/JwtTokenProviderTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/karmanno/kalahgame/unit/KalahBoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/karmanno/kalahgame/unit/KalahBoardTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/karmanno/kalahgame/unit/UserServiceTest.java" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -113,7 +101,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.GameServiceTest.testJoinGameWithError">
+  <component name="RunManager" selected="Spring Boot.KalahGameApplication">
     <configuration name="GameServiceTest.testJoinGame" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -174,44 +162,42 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="GameServiceTest.testReceiveErrorWhenUserHasNoAccess" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="kalah-game [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.karmanno.kalahgame.integration.GameServiceTest.testReceiveErrorWhenUserHasNoAccess&quot;" />
+        <option name="scriptParameters" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value=":cleanTest" />
-            <option value=":test" />
+            <option value="build" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="Tests in 'com.karmanno.kalahgame'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="kalah-game [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.karmanno.kalahgame.*&quot;" />
+        <option name="scriptParameters" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value=":cleanTest" />
-            <option value=":test" />
+            <option value="clean" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
     <configuration name="KalahGameApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
@@ -223,11 +209,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.kalah-game [build]" />
+        <item itemvalue="Gradle.kalah-game [clean]" />
         <item itemvalue="Gradle.GameServiceTest.testJoinGameWithError" />
         <item itemvalue="Gradle.GameServiceTest.testJoinGame" />
         <item itemvalue="Gradle.GameServiceTest.testReceiveErrorWhenUserCantMove" />
-        <item itemvalue="Gradle.Tests in 'com.karmanno.kalahgame'" />
-        <item itemvalue="Gradle.GameServiceTest.testReceiveErrorWhenUserHasNoAccess" />
       </list>
     </recent_temporary>
   </component>
@@ -246,7 +232,7 @@
       <workItem from="1574709174726" duration="422000" />
       <workItem from="1574711109726" duration="3707000" />
       <workItem from="1574754390393" duration="12654000" />
-      <workItem from="1574839890411" duration="6838000" />
+      <workItem from="1574839890411" duration="8866000" />
     </task>
     <task id="LOCAL-00001" summary="Initial">
       <created>1574695027840</created>
@@ -318,7 +304,21 @@
       <option name="project" value="LOCAL" />
       <updated>1574786815448</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Fixed tests, add dockerfile">
+      <created>1574850236436</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1574850236437</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Add idea metafiles for easier project opening on another pcs">
+      <created>1574850281484</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1574850281484</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -348,7 +348,9 @@
     <MESSAGE value="Updates in algorythm" />
     <MESSAGE value="Add spring security JWT integration" />
     <MESSAGE value="Fixed broken authorization, written api methods" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed broken authorization, written api methods" />
+    <MESSAGE value="Fixed tests, add dockerfile" />
+    <MESSAGE value="Add idea metafiles for easier project opening on another pcs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add idea metafiles for easier project opening on another pcs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
